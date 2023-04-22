@@ -34,8 +34,8 @@ const description = ref({
 })
 
 onMounted(() => {
-  email.value.value = 'contato.ericoliveira+22@gmail.com'
-  password.value.value = 'Teste@123'
+  email.value.value = ''
+  password.value.value = ''
 })
 
 const submit = handleSubmit(async (values) => {
