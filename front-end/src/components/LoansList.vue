@@ -71,18 +71,18 @@ const search = ref('')
 const sortBy = ref([{ key: 'contractNumber', order: 'asc' }])
 
 const headers = ref([
-  { key: 'id', title: 'ID' },
-  { key: 'contractNumber', title: 'N° Contrato' },
-  { key: 'createdAt', title: 'Dt. Criação' },
-  { key: 'disbursedAmount', title: 'Desembolso' },
-  { key: 'disbursementDate', title: 'Dt. Desembolso' },
-  { key: 'expiryDate', title: 'Vencimento' },
-  { key: 'firstPaymentDate', title: '1° Pgtm' },
-  { key: 'numberOfInstallments', title: 'Num. Parcelas' },
-  { key: 'status', title: 'Status' },
-  { key: 'totalAmount', title: 'Total' },
-  { key: 'type', title: 'Tipo' },
-  { key: 'actions', title: 'Ações' }
+  { key: 'id', title: 'ID', width: '100px' },
+  { key: 'contractNumber', title: 'N° Contrato', width: '140px' },
+  { key: 'createdAt', title: 'Dt. Criação', width: '100px' },
+  { key: 'disbursedAmount', title: 'Desembolso', width: '140px' },
+  { key: 'disbursementDate', title: 'Dt. Desembolso', width: '100px' },
+  { key: 'expiryDate', title: 'Vencimento', width: '100px' },
+  { key: 'firstPaymentDate', title: '1° Pgtm', width: '100px' },
+  { key: 'numberOfInstallments', title: 'Num. Parcelas', width: '80px' },
+  { key: 'status', title: 'Status', width: '100px' },
+  { key: 'totalAmount', title: 'Total', width: '140px' },
+  { key: 'type', title: 'Tipo', width: '90px' },
+  { key: 'actions', title: 'Ações', width: '100px' }
 ])
 
 const tableItems = computed(() => loansData.value.loans)
@@ -117,7 +117,7 @@ function handleFilter(value: string, query: string, item?: any) {
     if (filters.includes(key)) return val
   })
 
-  return filterVal.toString().toLocaleLowerCase().indexOf(query) !== -1
+  return filterVal.toString().toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1
 }
 
 function editItem(item: Loan) {
@@ -193,71 +193,71 @@ onMounted(async () => {
             </v-card-title>
 
             <v-card-text>
-              <v-container>
+              <v-container fluid>
                 <v-row>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.id"
                       :label="headers[0].title"
                       disabled
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.contractNumber"
                       :label="headers[1].title"
                       disabled
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.createdAt"
                       :label="headers[2].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.disbursedAmount"
                       :label="headers[3].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.expiryDate"
                       :label="headers[4].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.firstPaymentDate"
                       :label="headers[5].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.numberOfInstallments"
                       :label="headers[6].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.firstPaymentDate"
                       :label="headers[7].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.status"
                       :label="headers[8].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.totalAmount"
                       :label="headers[9].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="2">
+                  <v-col>
                     <v-text-field
                       v-model="editedItem.type"
                       :label="headers[10].title"
@@ -320,5 +320,12 @@ onMounted(async () => {
 .loans-container {
   width: 100%;
   min-height: 80vh;
+}
+table {
+  table-layout: fixed;
+}
+.v-table .v-table__wrapper > table > tbody > tr > td,
+.v-table .v-table__wrapper > table > tbody > tr > th {
+  left: 0 !important;
 }
 </style>
