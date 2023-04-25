@@ -195,69 +195,69 @@ onMounted(async () => {
             <v-card-text>
               <v-container fluid>
                 <v-row>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.id"
                       :label="headers[0].title"
                       disabled
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.contractNumber"
                       :label="headers[1].title"
                       disabled
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.createdAt"
                       :label="headers[2].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.disbursedAmount"
                       :label="headers[3].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.expiryDate"
                       :label="headers[4].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.firstPaymentDate"
                       :label="headers[5].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.numberOfInstallments"
                       :label="headers[6].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.firstPaymentDate"
                       :label="headers[7].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.status"
                       :label="headers[8].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.totalAmount"
                       :label="headers[9].title"
                     ></v-text-field>
                   </v-col>
-                  <v-col>
+                  <v-col class="min-w-[14rem]">
                     <v-text-field
                       v-model="editedItem.type"
                       :label="headers[10].title"
@@ -316,16 +316,18 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .loans-container {
   width: 100%;
+  max-width: 1460px;
   min-height: 80vh;
-}
-table {
-  table-layout: fixed;
-}
-.v-table .v-table__wrapper > table > tbody > tr > td,
-.v-table .v-table__wrapper > table > tbody > tr > th {
-  left: 0 !important;
+
+  table {
+    table-layout: fixed;
+  }
+  .v-table .v-table__wrapper > table > tbody > tr > td,
+  .v-table .v-table__wrapper > table > tbody > tr > th {
+    left: 0 !important;
+  }
 }
 </style>

@@ -10,7 +10,10 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AuthLogin: typeof import('./src/components/AuthLogin.vue')['default']
+    AuthResendPasswor: typeof import('./src/components/AuthResendPasswor.vue')['default']
+    AuthResendPassword: typeof import('./src/components/AuthResendPassword.vue')['default']
     LoansList: typeof import('./src/components/LoansList.vue')['default']
+    ResendPasswor: typeof import('./src/components/ResendPasswor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

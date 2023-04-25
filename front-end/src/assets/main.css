@@ -1,14 +1,17 @@
 @import './base.css';
 
 #app {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
-  max-width: 1420px;
+  height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   overflow: hidden;
 
   font-weight: normal;
-  background: #fff;
   color: rgba(0, 0, 0, 0.87);
 }
 
