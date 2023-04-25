@@ -39,8 +39,8 @@ const description = ref({
 
 onMounted(() => {
   userIsLogged()
-  email.value.value = ''
-  password.value.value = ''
+  email.value.value = 'contato.ericoliveira+29@gmail.com'
+  password.value.value = 'Teste@123'
 })
 
 const showAlert = (response: string) => {
@@ -56,6 +56,9 @@ const submit = handleSubmit(async (values) => {
     step.value === 'signIn'
       ? await login(values.email, values.password)
       : await register(values.email, values.password)
+
+  console.log('🚀 ~ file: AuthLogin.vue:56 ~ submit ~ response:', response)
+  if (step.value !== 'signIn') step.value = 'signIn'
 
   if (response !== undefined) showAlert(response)
 })

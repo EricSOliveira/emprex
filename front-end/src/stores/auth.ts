@@ -38,10 +38,15 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (email: string, password: string) => {
     return await firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential: any) => {
-        loggedUser.value = userCredential.user;
-        token.value = loggedUser.value.auth.currentUser?.accessToken
-        userIsLogged()
+      .then(async (userCredential: any) => {
+        const isVerified = userCredential.user.emailVerified
+        if (isVerified) {
+          loggedUser.value = userCredential.user
+          token.value = loggedUser.value.auth.currentUser?.accessToken
+          userIsLogged()
+        } else {
+          return 'auth/email-login-needs-to-be-verified'
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -54,9 +59,11 @@ export const useAuthStore = defineStore('auth', () => {
   const register = async (email: string, password: string) => {
     return await firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential: { user: any; }) => {
-        loggedUser.value = userCredential.user;
-        token.value = loggedUser.value.auth.currentUser?.accessToken
-        userIsLogged()
+        userCredential.user.sendEmailVerification()
+        return 'auth/email-needs-to-be-verified'
+        // loggedUser.value = userCredential.user;
+        // token.value = loggedUser.value.auth.currentUser?.accessToken
+        // userIsLogged()
       })
       .catch((error: { code: any; message: any; }) => {
         const errorCode = error.code;
@@ -132,6 +139,20 @@ export const useAuthStore = defineStore('auth', () => {
       alert.text = 'Recuperação de senha enviada, verifique seu e-mail'
       alert.hide = false
       alert.type = 'success'
+    }
+
+    if (response.includes('auth/email-needs-to-be-verified')) {
+      alert.title = 'Obaa'
+      alert.text = 'Verificação de e-mail enviada, acesse seu e-mail'
+      alert.hide = false
+      alert.type = 'success'
+    }
+
+    if (response.includes('auth/email-login-needs-to-be-verified')) {
+      alert.title = 'Opss'
+      alert.text = 'Verificação de e-mail pendente, acesse seu e-mail'
+      alert.hide = false
+      alert.type = 'error'
     }
 
     return alert
