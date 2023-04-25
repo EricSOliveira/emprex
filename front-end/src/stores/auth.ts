@@ -75,12 +75,12 @@ export const useAuthStore = defineStore('auth', () => {
 
   const logout = async () => {
     try {
-      await firebase.auth().signOut();
+      await firebase.auth().signOut()
       loggedUser.value = {}
       token.value = ""
       router.push('/')
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 

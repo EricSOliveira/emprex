@@ -32,6 +32,7 @@ const loansData = ref<Loans>({
   page: 1,
   pageCount: 1
 })
+const loading = ref(false)
 
 const dialog = ref(false)
 const dialogDelete = ref(false)
@@ -97,6 +98,8 @@ watch(
 )
 
 const populateData = async (page?: number, perPage?: number) => {
+  loading.value = true
+
   const { data } = await getData(page, perPage)
   loansData.value = data
 
@@ -108,6 +111,8 @@ const populateData = async (page?: number, perPage?: number) => {
       if (amountKeys.includes(key)) it[key] = formatCurrency(String(val))
     })
   })
+
+  loading.value = false
 }
 
 function handleFilter(value: string, query: string, item?: any) {
@@ -167,7 +172,21 @@ onMounted(async () => {
 
 <template>
   <div class="loans-container">
+    <v-container v-show="loading">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-skeleton-loader
+            class="mx-auto border"
+            width="1460px"
+            height="586px"
+            type="table"
+          ></v-skeleton-loader>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <v-data-table
+      v-show="!loading"
       :headers="headers"
       :items="tableItems"
       item-key="key"
@@ -328,6 +347,10 @@ onMounted(async () => {
   .v-table .v-table__wrapper > table > tbody > tr > td,
   .v-table .v-table__wrapper > table > tbody > tr > th {
     left: 0 !important;
+  }
+  .v-progress-linear__determinate,
+  .v-progress-linear__indeterminate {
+    height: 10px;
   }
 }
 </style>

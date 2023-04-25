@@ -23,6 +23,7 @@ const { handleSubmit, handleReset } = useForm({
 
 const email = useField('email')
 const password = useField('password')
+const loading = ref(false)
 const show1 = ref(false)
 const step = ref('signIn')
 const alert = ref<Alert>({
@@ -39,8 +40,8 @@ const description = ref({
 
 onMounted(() => {
   userIsLogged()
-  email.value.value = 'contato.ericoliveira+29@gmail.com'
-  password.value.value = 'Teste@123'
+  email.value.value = ''
+  password.value.value = ''
 })
 
 const showAlert = (response: string) => {
@@ -52,12 +53,15 @@ const showAlert = (response: string) => {
 }
 
 const submit = handleSubmit(async (values) => {
+  loading.value = true
+
   const response: any =
     step.value === 'signIn'
       ? await login(values.email, values.password)
       : await register(values.email, values.password)
 
-  console.log('🚀 ~ file: AuthLogin.vue:56 ~ submit ~ response:', response)
+  loading.value = false
+
   if (step.value !== 'signIn') step.value = 'signIn'
 
   if (response !== undefined) showAlert(response)
@@ -140,7 +144,12 @@ watch(
             </span>
           </div>
 
-          <v-btn class="me-4 mt-6 text-white font-500" type="submit" color="#88b343">
+          <v-btn
+            class="me-4 mt-6 text-white font-500"
+            type="submit"
+            color="#88b343"
+            :loading="loading"
+          >
             {{ description.btn }}
           </v-btn>
 

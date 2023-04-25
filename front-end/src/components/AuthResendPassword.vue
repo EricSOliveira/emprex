@@ -19,6 +19,7 @@ const { handleSubmit } = useForm({
 })
 
 const email = useField('email')
+const loading = ref(false)
 
 const alert = ref<Alert>({
   hide: true,
@@ -38,7 +39,9 @@ const showAlert = (response: string) => {
 }
 
 const submit = handleSubmit(async ({ email }) => {
+  loading.value = true
   const response = await sendRecoverPassword(String(email))
+  loading.value = false
   showAlert(response)
 })
 </script>
@@ -77,7 +80,7 @@ const submit = handleSubmit(async ({ email }) => {
             <v-btn color="blue-darken-1" variant="text" @click="router.push('/login')"
               >Voltar</v-btn
             >
-            <v-btn color="#88b343" variant="text" type="submit">Enviar</v-btn>
+            <v-btn color="#88b343" variant="text" type="submit" :loading="loading">Enviar</v-btn>
             <v-spacer></v-spacer>
           </div>
         </form>
