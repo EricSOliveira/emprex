@@ -25,16 +25,15 @@ const router = createRouter({
       path: "/loans",
       name: 'Loans',
       component: () => import("../views/AppLoans.vue"),
+      meta: { requiresAuth: true }
     },
   ],
 });
 
 router.beforeEach(async (to, from) => {
   const isAuthenticated = await JSON.parse(localStorage.auth).token
-  const publicRoute = ['Home', 'Login', 'Reset']
-  const name = String(to.name)
 
-  if (!isAuthenticated && !publicRoute.includes(name)) return { name: 'Login' }
+  if (!isAuthenticated && to.meta.requiresAuth) return { name: 'Login' }
   else return true
 })
 
