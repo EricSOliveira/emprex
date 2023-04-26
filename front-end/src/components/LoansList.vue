@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue'
 import { formatCurrency } from '@/helpers/formatCurrency'
 import { formatISODate } from '@/helpers/formatISODate'
 import { useJsonApi } from '@/stores/jsonApi'
@@ -122,7 +121,9 @@ function handleFilter(value: string, query: string, item?: any) {
     if (filters.includes(key)) return val
   })
 
-  return filterVal.toString().toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1
+  const normalize = (it: any) => it.toString().toLocaleLowerCase()
+
+  return normalize(filterVal).indexOf(normalize(query)) !== -1
 }
 
 function editItem(item: Loan) {
@@ -205,94 +206,15 @@ onMounted(async () => {
 
         <v-spacer></v-spacer>
 
-        <v-dialog v-model="dialog" max-width="80vw">
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">Edição de Registro</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container fluid>
-                <v-row>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.id"
-                      :label="headers[0].title"
-                      disabled
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.contractNumber"
-                      :label="headers[1].title"
-                      disabled
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.createdAt"
-                      :label="headers[2].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.disbursedAmount"
-                      :label="headers[3].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.expiryDate"
-                      :label="headers[4].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.firstPaymentDate"
-                      :label="headers[5].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.numberOfInstallments"
-                      :label="headers[6].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.firstPaymentDate"
-                      :label="headers[7].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.status"
-                      :label="headers[8].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.totalAmount"
-                      :label="headers[9].title"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col class="min-w-[14rem]">
-                    <v-text-field
-                      v-model="editedItem.type"
-                      :label="headers[10].title"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue-darken-1" variant="text" @click="close"> Cancelar </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="save"> Salvar </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+        <edit-loan
+          :headers="headers"
+          :item="editedItem"
+          :index="editedIndex"
+          :show-dialog="dialog"
+          @close="(e) => (dialog = e)"
+          @update="(e) => ((editedIndex = e.index), (editedItem = e.item))"
+          @save="() => save()"
+        />
 
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>

@@ -40,8 +40,8 @@ const description = ref({
 
 onMounted(() => {
   userIsLogged()
-  email.value.value = ''
-  password.value.value = ''
+  email.value.value = 'contato.ericoliveira+29@gmail.com'
+  password.value.value = 'Teste@123'
 })
 
 const showAlert = (response: string) => {
