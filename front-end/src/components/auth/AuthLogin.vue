@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useField, useForm } from 'vee-validate'
-import { useAuthStore } from '../stores/auth'
-import type { Alert } from '../stores/auth'
+import { useAuthStore } from '@/stores/auth'
+import type { Alert } from '@/stores/auth'
 
 const { login, register, userIsLogged, authNotifications } = useAuthStore()
 
@@ -40,8 +40,8 @@ const description = ref({
 
 onMounted(() => {
   userIsLogged()
-  email.value.value = 'contato.ericoliveira+29@gmail.com'
-  password.value.value = 'Teste@123'
+  email.value.value = ''
+  password.value.value = ''
 })
 
 const showAlert = (response: string) => {

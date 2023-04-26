@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useField, useForm } from 'vee-validate'
-import { useAuthStore } from '../stores/auth'
-import type { Alert } from '../stores/auth'
+import { useAuthStore } from '@/stores/auth'
+import type { Alert } from '@/stores/auth'
 
 const router = useRouter()
 
