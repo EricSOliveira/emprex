@@ -6,6 +6,18 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
+  build: {
+    cssCodeSplit: false,
+    sourcemap: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vuetify': ['vuetify'],
+        },
+      },
+    },
+  },
   plugins: [
     vue(),
     Components({
